@@ -11,8 +11,8 @@ const __dirname = dirname(__filename);
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
+app.get('/info', function (req, res) {
+  res.status(200).json({info: 'preset text'});
 });
 
 app.set('port', port || 3000);
