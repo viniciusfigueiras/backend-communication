@@ -10,9 +10,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.json());
 
-app.get('/info', function (req, res) {
-  res.status(200).json({info: 'preset text'});
+app.get('/info/:queryParams', function (req, res) {
+  const { queryParams } = req.params;
+  const welcomeObj = {
+    name: queryParams
+  }
+  var jsonMsg= JSON.stringify(welcomeObj);
+  res.status(200).json(jsonMsg);
+});
+
+app.post('/post/:parcel', (req, res) => {
+  const { parcel } = req.body;
+  if(!parcel) {
+    return res.status(400).send({status:'failed'});
+  }
+  console.log(parcel);
+  res.status(200).send({status: 'recieved'});
 });
 
 app.set('port', port || 3000);

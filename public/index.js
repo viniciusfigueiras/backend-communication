@@ -1,21 +1,38 @@
 const getBtn = document.getElementById("get");
 const postBtn = document.getElementById("post");
-const input = document.getElementById("input");
+const welcome = document.getElementById("welcome");
 
-const baseUrl = '/info'
+var inputValue = document.getElementById("input").value;
 
-document.addEventListener('click', getInfo);
+getBtn.addEventListener('click', getInfo);
+postBtn.addEventListener('click', postInfo);
+
 async function getInfo(e) {
     e.preventDefault();
 
-    const res = await fetch(baseUrl, {
+    const res = await fetch('/info/' + inputValue, {
         method: 'GET'
     });
 
     const data = await res.json();
-    input.value = data.info;
+    var result = JSON.parse(data);
+    welcome.textContent = "Welcome " + result.name;
 }
 
-async function postInfo() {
+async function postInfo(e) {
+    e.preventDefault();
+    if(inputValue == ''){
+        return; 
+    }
+    const res = await fetch('/post/' + inputValue, {
+        method: 'POST',
+        headers: {
+            "Content-type": 'application/json'
+        },
+        body: JSON.stringify({
+            parcel: inputValue
+        })
+    });
+
 
 }
