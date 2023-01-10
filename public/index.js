@@ -2,14 +2,13 @@ const getBtn = document.getElementById("get");
 const postBtn = document.getElementById("post");
 const welcome = document.getElementById("welcome");
 
-var inputValue = document.getElementById("input").value;
-
 getBtn.addEventListener('click', getInfo);
 postBtn.addEventListener('click', postInfo);
 
 async function getInfo(e) {
     e.preventDefault();
 
+    const inputValue = document.getElementById("input").value;
     const res = await fetch('/info/' + inputValue, {
         method: 'GET'
     });
@@ -21,6 +20,8 @@ async function getInfo(e) {
 
 async function postInfo(e) {
     e.preventDefault();
+    
+    const inputValue = document.getElementById("input").value;
     if(inputValue == ''){
         return; 
     }
